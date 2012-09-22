@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: switch-ide
+      hosts:
+        - localhost:27017

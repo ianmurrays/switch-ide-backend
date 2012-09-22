@@ -4,7 +4,7 @@ require "rubygems"
 require "bundler/setup"
 
 require 'sinatra/base'
-require 'mongo_mapper'
+require 'mongoid'
 
 require 'app'
 
@@ -17,4 +17,4 @@ require 'controllers/projects'
 require 'controllers/files'
 
 # Set the database
-MongoMapper.database = "switch-ide"
+Mongoid.load!("./api/v1/config/mongoid.yml", Sinatra::Base.settings.environment)

@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 gem 'sinatra'
 
 gem 'bson_ext', :platform => :mri
-gem 'mongo_mapper'
+# gem 'mongo_mapper'
+gem 'mongoid'
 gem 'sass'
 
 group :development do

@@ -5,7 +5,7 @@ module Api
     class App < Sinatra::Base
       # Returns a list of projects on the DB
       get '/projects' do
-        Project.all.to_json(:only => [:name, :path, :id])
+        Project.all.to_json
       end
 
       # Returns the JSON respresentation of a single project
@@ -14,11 +14,11 @@ module Api
         
         halt 404 unless project
 
-        project.to_json(:only => [:name, :path, :id])
+        project.to_json
       end
 
       post '/projects' do
-        Project.create(:name => params[:name]).to_json(:only => [:name, :path, :id])
+        Project.create(:name => params[:name]).to_json
       end
 
       delete '/projects/:id' do
