@@ -14,15 +14,7 @@ module Api
       before_save :create_project
       before_destroy :destroy_project # FIXME
 
-      # Public: Adds an "id" field to the returned JSON
-      #
-      # Returns the correct json for the frontend.
-      def as_json(options = {})
-        attrs = super(options)
-        attrs["id"] = attrs["_id"]
-        attrs.delete "_id"
-        attrs
-      end
+      belongs_to :user
 
       # Public: Returns a list of files in the specified folder.
       #

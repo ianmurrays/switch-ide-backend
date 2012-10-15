@@ -1,7 +1,21 @@
-require 'rubygems'
-require 'rspec/core/rake_task'
+task :default => [:server]
 
-RSpec::Core::RakeTask.new do |task|
-  task.rspec_opts = ["-c", "-f progress", "-r ./spec/api/v1/spec_helper.rb"]
-  task.pattern    = 'spec/**/*_spec.rb'
+task :environment do
+  require "./api/v1/boot"
 end
+
+desc "Runs the development server (default)"
+task :server do
+  system "rackup"
+end
+
+desc "Runs the console"
+task :console => :environment do
+  require "irb"
+  include Api::V1
+  ARGV.clear
+  IRB.start
+end
+
+task :s => :server
+task :c => :console

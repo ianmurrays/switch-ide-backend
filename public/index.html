@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Switch IDE &mdash; Login</title>
+    <!-- Bootstrap -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+
+    <style type="text/css">
+      .center {
+        text-align: center;
+      }
+
+      .separated {
+        margin-top: 50px;
+      }
+
+      .button {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span8 offset2">
+          <h1 class="center">Switch IDE</h1>
+        </div>
+      </div>
+
+      <div class="row separated">
+        <div class="span6 offset3">
+          <div class="well">
+            <p>
+              Switch IDE is a revolutionary Backbone.js development tool that simplifies development by allowing you to create views by dragging and dropping components (think Xcode or Visual Studio), using Twitter Bootstrap.
+            </p>
+
+            <p>
+              We are in private alpha, and this is in very early development stages. If you want access, please login using your GitHub account. I will be allowing access to users gradually.
+            </p>
+
+            <div class="row">
+              <div class="span2">
+                <img src="/octocat.png" alt="Octocat">
+              </div>
+              <div class="span3 pull-right button">
+                <a href="/api/v1/auth/github" class="btn btn-primary btn-large btn-block">
+                  <i class="icon-user icon-white"></i>
+                  Sign in with GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-contrib'
 
 gem 'bson_ext', :platform => :mri
-# gem 'mongo_mapper'
 gem 'mongoid'
 gem 'sass'
+gem 'omniauth'
+gem 'omniauth-github'
 
 group :development do
   gem 'shotgun'
