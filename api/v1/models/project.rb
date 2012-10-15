@@ -1,11 +1,14 @@
 require "securerandom"
+require "open3"
 
 module Api
   module V1
     class Project < Model
+      include Mongoid::Timestamps
+
       field :name, :type => String
       field :path, :type => String
-
+      
       validates :name, :presence => true
 
       before_save :create_project
@@ -128,16 +131,16 @@ module Api
 
       # Builds the project using brunch
       def build_project
-        output, result = Open3.capture2e "cd #{self.full_path} && brunch build"
+        output, result = ::Open3.capture2e "cd #{self.full_path} && brunch build"
 
         {
           :output => output,
-          :result => !(output =~ /compiled/)
+          :result => (output =~ /error/ || ! (output =~ /compiled/))
         }
       end
 
       def run_project
-        output, result = Open3.capture2e "cd #{self.full_path} && forever stop server.js && forever start server.js"
+        output, result = ::Open3.capture2e "cd #{self.full_path} && forever stop server.js && forever start server.js"
 
         {
           :output => output,
