@@ -11,7 +11,7 @@ module Api
         
         if user.allowed
           session[:user] = user
-          redirect site_url('/frontend')
+          redirect site_url('/frontend/index.html')
         else
           redirect site_url('thanks.html')
         end

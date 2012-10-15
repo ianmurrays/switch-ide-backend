@@ -3,8 +3,10 @@ require 'models/project'
 module Api
   module V1
     class App < Sinatra::Base
+      before { authenticate! }
+
       before '/projects/:id/files*' do
-        @project = Project.find(params[:id])
+        @project = @user.projects.find(params[:id])
       end
 
       # Lists all files in the specified path

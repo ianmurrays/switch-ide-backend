@@ -37,10 +37,25 @@ module Api
         provider :github, Api::V1::App.settings.github_key, Api::V1::App.settings.github_secret
       end
 
+      # Utility methods
       def site_url(url)
         url = url[0] == "/" ? url : "/#{url}"
 
         settings.url + url
+      end
+
+      def authenticate!
+        if session[:user]
+          # Validate that the session exists
+          user = session[:user]
+
+          if @user = User.find_by(github_uid: user.github_uid, email: user.email, name: user.name)
+            return
+          end
+        end
+
+        # Not a valid session, bye!
+        throw(:halt, [401, "Not authorized\n"])
       end
     end
   end
