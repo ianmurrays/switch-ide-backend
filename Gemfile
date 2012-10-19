@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'thin'
 
 gem 'bson_ext', :platform => :mri
 gem 'mongoid'
