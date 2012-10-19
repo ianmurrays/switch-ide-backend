@@ -55,6 +55,7 @@ module Api
         end
 
         # Not a valid session, bye!
+        session[:user] = nil
         throw(:halt, [401, "Not authorized\n"])
       end
     end

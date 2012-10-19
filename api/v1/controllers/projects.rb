@@ -3,7 +3,7 @@ require 'models/project'
 module Api
   module V1
     class App < Sinatra::Base
-      before { authenticate! }
+      before(/^\/projects*/) { authenticate! }
 
       # Returns a list of projects on the DB
       get '/projects' do
