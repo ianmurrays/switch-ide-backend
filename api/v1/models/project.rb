@@ -12,8 +12,8 @@ module Api
       
       validates :name, :presence => true
 
-      before_save :create_project
-      before_save :randomize_port
+      before_create :create_project
+      before_create :randomize_port
       before_destroy :destroy_project # FIXME
 
       belongs_to :user
@@ -135,6 +135,12 @@ module Api
       end
 
       def run_project
+        # If we don't have a port yet, create one.
+        unless self.port
+          randomize_port
+          save!
+        end
+
         output, result = ::Open3.capture2e "cd #{self.full_path} && forever stop server.js #{self.port} && forever start server.js #{self.port}"
 
         {
