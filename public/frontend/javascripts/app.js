@@ -95,7 +95,7 @@ window.require.define({"application": function(exports, require, module) {
 
   module.exports = Application = (function() {
 
-    Application.prototype.baseUrl = 'http://localhost:9292/api/v1';
+    Application.prototype.baseUrl = '/api/v1';
 
     function Application() {
       var _this = this;
