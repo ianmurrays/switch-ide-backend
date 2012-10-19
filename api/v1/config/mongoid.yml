@@ -4,3 +4,10 @@ development:
       database: switch-ide
       hosts:
         - localhost:27017
+        
+production:
+  sessions:
+    default:
+      database: switch-ide
+      hosts:
+        - localhost:27017
