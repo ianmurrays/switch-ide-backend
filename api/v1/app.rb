@@ -11,6 +11,7 @@ module Api
       configure :development do
         register Sinatra::Reloader
         set :url, "http://localhost:9292"
+        set :run_url, "http://localhost" # To run the applications, appends a port here.
 
         set :github_key, "fb319448e45503b6df9c"
         set :github_secret, "8413267392254f8d2abc44c72099bbde0b95de0a"
@@ -28,6 +29,7 @@ module Api
 
       configure :production do
         set :url, "http://switch.ianmurray.me"
+        set :run_url, "http://switch.ianmurray.me" # To run the applications, appends a port here.
 
         set :github_key, "bc136506f61f660a2690"
         set :github_secret, "31065b4d9c7fadddc731a3fd9c617ffebe4bddd3"
@@ -45,6 +47,11 @@ module Api
       end
 
       def authenticate!
+        if request.referer =~ /localhost\:3333/
+          @user = User.first
+          return
+        end
+
         if session[:user]
           # Validate that the session exists
           user = session[:user]

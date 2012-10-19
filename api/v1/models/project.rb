@@ -8,10 +8,12 @@ module Api
 
       field :name, :type => String
       field :path, :type => String
+      field :port, :type => Integer
       
       validates :name, :presence => true
 
       before_save :create_project
+      before_save :randomize_port
       before_destroy :destroy_project # FIXME
 
       belongs_to :user
@@ -32,6 +34,7 @@ module Api
         folder.gsub! /\/$/, ""
 
         files = Dir["#{self.full_path}/#{folder}/*"].collect do |entry|
+          next if %w{server.js node_modules}.include? File.basename(entry)
           self.file_to_json entry, folder
         end
       end
@@ -132,10 +135,11 @@ module Api
       end
 
       def run_project
-        output, result = ::Open3.capture2e "cd #{self.full_path} && forever stop server.js && forever start server.js"
+        output, result = ::Open3.capture2e "cd #{self.full_path} && forever stop server.js #{self.port} && forever start server.js #{self.port}"
 
         {
           :output => output,
+          :url => "#{Api::V1::App.settings.run_url}:#{self.port}",
           :result => !(output =~ /Forever processing file/)
         }
       end
@@ -148,6 +152,12 @@ module Api
         unless system "brunch new #{self.full_path} -s https://github.com/ianmurrays/brunch-crumbs"
           # TODO: Uh-oh
         end
+      end
+
+      def randomize_port
+        begin
+          self.port = 8000 + rand(2000)
+        end until Project.where(port: self.port).count == 0
       end
 
       def destroy_project
