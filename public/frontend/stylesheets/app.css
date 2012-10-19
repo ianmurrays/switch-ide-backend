@@ -5007,8 +5007,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     */
 @font-face {
   font-family: "FontAwesome";
-  src: url('/frontend/fonts/fontawesome-webfont.eot');
-  src: url('/frontend/fonts/fontawesome-webfont.eot?#iefix') format('eot'), url('/frontend/fonts/fontawesome-webfont.woff') format('woff'), url('/frontend/fonts/fontawesome-webfont.ttf') format('truetype'), url('/frontend/fonts/fontawesome-webfont.svg#FontAwesome') format('svg');
+  src: url('/fonts/fontawesome-webfont.eot');
+  src: url('/fonts/fontawesome-webfont.eot?#iefix') format('eot'), url('/fonts/fontawesome-webfont.woff') format('woff'), url('/fonts/fontawesome-webfont.ttf') format('truetype'), url('/fonts/fontawesome-webfont.svg#FontAwesome') format('svg');
   font-weight: normal;
   font-style: normal;
 }

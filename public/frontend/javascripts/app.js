@@ -95,7 +95,7 @@ window.require.define({"application": function(exports, require, module) {
 
   module.exports = Application = (function() {
 
-    Application.prototype.baseUrl = '/api/v1';
+    Application.prototype.baseUrl = 'http://localhost:9292/api/v1';
 
     function Application() {
       var _this = this;
@@ -569,7 +569,7 @@ window.require.define({"models/project": function(exports, require, module) {
         success: function(response) {
           if (!response.result) {
             setTimeout(function() {
-              return window.open("http://localhost:8888");
+              return window.open(response.url);
             }, 1500);
             Backbone.Mediator.pub("status:set", "Running", {
               sticky: true
