@@ -3,12 +3,10 @@ $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
 require "rubygems"
 require "bundler/setup"
 
-require 'sinatra/base'
-require "sinatra/reloader"
-require 'mongoid'
+Bundler.require
 
-require 'omniauth'
-require 'omniauth-github'
+require 'zip/zip'
+require 'zip/zipfilesystem'
 
 require 'app'
 

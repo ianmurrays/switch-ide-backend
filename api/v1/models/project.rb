@@ -5,6 +5,7 @@ module Api
   module V1
     class Project < Model
       include Mongoid::Timestamps
+      include ::Grit
 
       field :name, :type => String
       field :path, :type => String
@@ -35,11 +36,11 @@ module Api
 
         files = Dir["#{self.full_path}/#{folder}/*"].collect do |entry|
           next if %w{server.js node_modules}.include? File.basename(entry)
-          self.file_to_json entry, folder
+          self.file_to_hash entry, folder
         end
       end
 
-      def file_to_json(file, folder)
+      def file_to_hash(file, folder)
         {
           :name => File.basename(file),
           :parent => folder,
@@ -88,7 +89,7 @@ module Api
 
         directory = File.split(new_path).first
 
-        self.file_to_json self.full_path(new_path), directory
+        self.file_to_hash self.full_path(new_path), directory
       end
 
       def destroy_file(path)
@@ -115,7 +116,7 @@ module Api
             Dir.mkdir new_path
           end
 
-          self.file_to_json new_path, path
+          self.file_to_hash new_path, path
         end
       end
 
@@ -150,12 +151,42 @@ module Api
         }
       end
 
+      def archive_path
+        File.join(self.full_path, self.name) + ".zip"
+      end
+
+      def archive_project
+        output, result = ::Open3.capture2e "cd #{self.full_path} && brunch build -m"
+
+        unless (output =~ /error/ || ! (output =~ /compiled/))
+          # Zip it tight
+          path = File.join(self.full_path, "public")
+          path.sub!(%r[/$], "")
+          archive = self.archive_path
+          FileUtils.rm archive, :force => true
+
+          Zip::ZipFile.open(archive, 'w') do |zipfile|
+            Dir["#{path}/**/**"].reject{ |f| f == archive }.each do |file|
+              zipfile.add(file.sub(path + '/', ''), file)
+            end
+          end
+
+          archive
+        else
+          false
+        end
+      end
+
+      def initialize_git
+        Repo.init(self.full_path)
+      end
+
       private
 
       def create_project
         # Create a random path and the project
         self.path = "#{self.name}-#{SecureRandom.hex(10)}"
-        unless system "brunch new #{self.full_path} -s https://github.com/ianmurrays/brunch-crumbs"
+        unless system "brunch new #{self.full_path} -s git://github.com/ianmurrays/brunch-crumbs.git"
           # TODO: Uh-oh
         end
       end

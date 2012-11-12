@@ -13,14 +13,20 @@ GEM
       bson (~> 1.7.0)
     builder (3.0.3)
     daemons (1.1.9)
+    diff-lcs (1.1.3)
     eventmachine (1.0.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    grit (2.5.0)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     hashie (1.2.0)
     httpauth (0.2.0)
     i18n (0.6.1)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    mime-types (1.19)
     mongoid (3.0.6)
       activemodel (~> 3.1)
       moped (~> 1.1)
@@ -45,11 +51,13 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     origin (1.0.8)
+    posix-spawn (0.3.6)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rubyzip (0.9.9)
     sass (3.2.1)
     shotgun (0.9)
       rack (>= 1.0)
@@ -76,9 +84,11 @@ PLATFORMS
 
 DEPENDENCIES
   bson_ext
+  grit
   mongoid
   omniauth
   omniauth-github
+  rubyzip
   sass
   shotgun
   sinatra

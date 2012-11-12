@@ -9,6 +9,9 @@ gem 'mongoid'
 gem 'sass'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'rubyzip', :require => false
+
+gem 'grit'
 
 group :development do
   gem 'shotgun'
