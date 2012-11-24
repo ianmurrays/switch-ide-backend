@@ -17,5 +17,12 @@ task :console => :environment do
   IRB.start
 end
 
+desc "Creates a test user to try out Switch IDE"
+task :bootstrap => :environment do
+  include Api::V1
+  User.create :name => "Test", :email => "test@test.com", :github_uid => 0, :allowed => true
+  puts "Done!"
+end
+
 task :s => :server
 task :c => :console
